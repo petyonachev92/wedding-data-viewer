@@ -27,8 +27,8 @@ const client = new MongoClient(uri);
 app.get('/api/rsvps', async (req, res) => {
   try {
     await client.connect();
-    const database = client.db('wedding_db'); // Replace with your DB name
-    const collection = database.collection('rsvps'); // Replace with your collection name
+    const database = client.db(process.env.MONGODB_DB_NAME); // Replace with your DB name
+    const collection = database.collection(process.env.MONGODB_COLLECTION_NAME); // Replace with your collection name
     const liveData = await collection.find({}).toArray();
     res.json(liveData);
   } catch (error) {
