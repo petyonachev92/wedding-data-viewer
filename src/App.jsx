@@ -11,7 +11,7 @@ export default function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('http://localhost:5001/api/rsvps');
+      const response = await fetch('/api/rsvps');
       if (!response.ok) {
         throw new Error('Възникна грешка при връзката със сървъра.');
       }
