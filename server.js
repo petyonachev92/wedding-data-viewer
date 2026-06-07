@@ -11,7 +11,7 @@ app.use(cors()); // Allows your React app to talk to this server
 app.use(express.json());
 
 // ⚠️ REPLACE THIS with your actual connection string from MongoDB Atlas
-const uri = "mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority"; 
+const uri = process.env.MONGO_URI; 
 const client = new MongoClient(uri);
 
 app.get('/api/rsvps', async (req, res) => {
