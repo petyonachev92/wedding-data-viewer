@@ -39,6 +39,10 @@ app.get('/api/rsvps', async (req, res) => {
   }
 });
 
+app.get('/api/ping', (req, res) => {
+  res.status(200).send('Alive');
+});
+
 // 🌐 SERVE FRONTEND: Tell Express to point to Vite's production build folder
 app.use(express.static(path.join(__dirname, 'dist')));
 
