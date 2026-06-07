@@ -42,15 +42,16 @@ app.get('/api/rsvps', async (req, res) => {
 // 🌐 SERVE FRONTEND: Tell Express to point to Vite's production build folder
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Catch-all route: sends any non-API requests straight to your React app
-app.get('*', (req, res) => {
+// 🧹 Express v5 Catch-All Fallback
+// Using app.use without a path string catches everything safely without regex errors
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 // 🚀 Port Binding Configuration
 const PORT = process.env.PORT || 5001;
 
-// CRITICAL FOR RENDER: Explicitly add '0.0.0.0' as the host argument
+// Explicitly add '0.0.0.0' as the host argument for Render
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server cleanly running on port ${PORT} and accessible to Render`);
+  console.log(`🚀 Server cleanly running on port ${PORT}`);
 });
