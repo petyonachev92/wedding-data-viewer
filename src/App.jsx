@@ -41,97 +41,223 @@ export default function App() {
     });
   };
 
+  // --- NATIVE STYLES (Zero Compiler Dependencies) ---
+  const styles = {
+    page: {
+      backgroundColor: '#e2e8f0', // Darker slate gray background to make white cards pop
+      minHeight: '100vh',
+      padding: '40px 20px',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      boxSizing: 'border-box',
+    },
+    headerBox: {
+      backgroundColor: '#ffffff',
+      padding: '24px',
+      borderRadius: '16px',
+      border: '2px solid #cbd5e1',
+      boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)',
+      maxWidth: '1100px',
+      margin: '0 auto 40px auto',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      gap: '16px'
+    },
+    headline: {
+      margin: 0,
+      fontSize: '28px',
+      fontWeight: '900',
+      color: '#0f172a'
+    },
+    updateBtn: {
+      backgroundColor: '#4f46e5',
+      color: '#ffffff',
+      border: 'none',
+      borderBottom: '4px solid #3730a3',
+      padding: '12px 24px',
+      borderRadius: '12px',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      fontSize: '15px'
+    },
+    /* 📌 THE CRITICAL GRID CONTAINER */
+    gridContainer: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', // Rigid card slots
+      gap: '32px',
+      maxWidth: '1100px',
+      margin: '0 auto',
+      width: '100%',
+      alignItems: 'start'
+    },
+    /* 📌 THE DISTINCT CARD SHAPE */
+    card: {
+      backgroundColor: '#ffffff',
+      borderRadius: '20px',
+      border: '2px solid #cbd5e1',
+      borderTop: '10px solid #4f46e5', // Thick dark indigo banner on top
+      boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)', // Heavy card shadow
+      display: 'flex',
+      flexDirection: 'column',
+      overflow: 'hidden',
+    },
+    cardHeader: {
+      backgroundColor: '#f8fafc',
+      padding: '16px',
+      borderBottom: '2px solid #f1f5f9',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center'
+    },
+    timestampLabel: {
+      fontSize: '10px',
+      textTransform: 'uppercase',
+      color: '#94a3b8',
+      fontWeight: 'bold',
+      letterSpacing: '1px'
+    },
+    timestampValue: {
+      fontSize: '12px',
+      fontWeight: 'bold',
+      color: '#475569',
+      display: 'block',
+      marginTop: '2px'
+    },
+    counterBadge: {
+      backgroundColor: '#dcfce7',
+      color: '#166534',
+      fontSize: '12px',
+      fontWeight: '800',
+      padding: '6px 12px',
+      borderRadius: '9999px',
+      border: '1px solid #bbf7d0'
+    },
+    cardBody: {
+      padding: '20px'
+    },
+    sectionTitle: {
+      fontSize: '11px',
+      textTransform: 'uppercase',
+      color: '#94a3b8',
+      fontWeight: '800',
+      letterSpacing: '1px',
+      display: 'block',
+      marginBottom: '12px'
+    },
+    guestRow: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: '12px',
+      backgroundColor: '#f8fafc',
+      border: '1px solid #e2e8f0',
+      borderRadius: '12px',
+      marginBottom: '10px'
+    },
+    guestName: {
+      fontWeight: 'bold',
+      color: '#1e293b',
+      fontSize: '15px'
+    },
+    menuTag: {
+      fontSize: '11px',
+      color: '#64748b',
+      marginTop: '4px',
+      backgroundColor: '#ffffff',
+      border: '1px solid #e2e8f0',
+      padding: '2px 8px',
+      borderRadius: '6px',
+      display: 'inline-block',
+      fontWeight: '600'
+    },
+    statusBadge: (attending) => ({
+      backgroundColor: attending ? '#ecfdf5' : '#fff1f2',
+      color: attending ? '#047857' : '#be123c',
+      border: attending ? '1px solid #a7f3d0' : '1px solid #fecdd3',
+      fontSize: '12px',
+      fontWeight: 'bold',
+      padding: '4px 10px',
+      borderRadius: '8px'
+    }),
+    messageBox: {
+      backgroundColor: '#fef3c7',
+      border: '1px solid #fde68a',
+      padding: '12px',
+      margin: '0 20px 20px 20px',
+      borderRadius: '12px'
+    },
+    messageLabel: {
+      fontSize: '11px',
+      fontWeight: '800',
+      color: '#92400e',
+      display: 'block',
+      marginBottom: '2px'
+    },
+    messageText: {
+      margin: 0,
+      fontSize: '13px',
+      color: '#78350f',
+      fontStyle: 'italic',
+      fontWeight: '500'
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-slate-100 p-4 md:p-12 font-sans text-slate-800 antialiased">
+    <div style={styles.page}>
       
-      {/* Dashboard Header Container */}
-      <header className="mb-12 max-w-6xl mx-auto bg-white p-6 rounded-2xl border-2 border-slate-200 shadow-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+      {/* Dashboard Top Header Box */}
+      <header style={styles.headerBox}>
         <div>
-          <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full">
-            Система за управление
-          </span>
-          <h1 className="text-3xl font-black tracking-tight text-slate-900 mt-2">
-            📋 Списък с гости
-          </h1>
+          <h1 style={styles.headline}>📋 Списък с гости</h1>
         </div>
-        
-        <button
-          onClick={fetchLiveData}
-          disabled={loading}
-          className="px-6 py-3 rounded-xl font-bold text-white tracking-wide bg-indigo-600 hover:bg-indigo-700 shadow-md border-b-4 border-indigo-800 active:scale-95 transition-all"
-        >
+        <button onClick={fetchLiveData} disabled={loading} style={styles.updateBtn}>
           {loading ? '⏳ Зареждане...' : '🔄 Обнови данните'}
         </button>
       </header>
 
-      {/* Error Message Display */}
       {error && (
-        <div className="max-w-6xl mx-auto mb-8 p-4 bg-rose-50 border-2 border-rose-200 text-rose-700 rounded-xl font-semibold">
+        <div style={{ maxWidth: '1100px', margin: '0 auto 20px auto', padding: '16px', backgroundColor: '#fef2f2', border: '1px solid #fee2e2', color: '#b91c1c', borderRadius: '12px', fontWeight: 'bold' }}>
           ⚠️ Грешка: {error}
         </div>
       )}
 
-      {/* Empty State View */}
-      {!loading && data.length === 0 && !error && (
-        <div className="text-center py-20 bg-white rounded-2xl border-2 border-dashed border-slate-300 max-w-6xl mx-auto text-slate-400 font-medium">
-          📭 Няма намерени записи в базата данни.
-        </div>
-      )}
-
-      {/* 🚀 RESPONSIVE GRID LAYOUT */}
-      {/* Centered items layout to make single or few cards look fantastic */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto justify-items-center items-start w-full">
+      {/* 🚀 THE FIXED NATIVE CSS GRID CONTAINER */}
+      <div style={styles.gridContainer}>
         {data.map((submission) => {
           const totalAttending = submission.guests?.filter(g => g.status === 'yes').length || 0;
           
           return (
-            /* 📌 STRICT CARD FRAME */
-            /* max-w-[380px] strictly blocks the entry from turning into a giant horizontal row */
-            <div 
-              key={submission._id.$oid || submission._id} 
-              className="w-full max-w-[380px] bg-white rounded-2xl shadow-lg border-2 border-slate-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-200 flex flex-col overflow-hidden border-t-8 border-t-indigo-600"
-            >
-              {/* Card Header Section */}
-              <div className="p-4 bg-slate-50 border-b-2 border-slate-100 flex justify-between items-center">
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                    Изпратено на:
-                  </span>
-                  <span className="text-xs font-bold text-slate-600">
-                    {formatDate(submission.submittedAt)}
-                  </span>
+            /* 🚀 INDEPENDENT PHYSICAL CARD BOX */
+            <div key={submission._id.$oid || submission._id} style={styles.card}>
+              
+              {/* Card Header Layer */}
+              <div style={styles.cardHeader}>
+                <div>
+                  <span style={styles.timestampLabel}>Изпратено на:</span>
+                  <span style={styles.timestampValue}>{formatDate(submission.submittedAt)}</span>
                 </div>
-                <span className="bg-emerald-100 text-emerald-800 text-xs font-black px-2.5 py-1 rounded-full border border-emerald-200 shadow-xs">
+                <div style={styles.counterBadge}>
                   ✓ {totalAttending} идват
-                </span>
+                </div>
               </div>
 
-              {/* Card Content Body */}
-              <div className="p-5 flex-grow">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-3">
-                  Група поканени:
-                </span>
+              {/* Card Body Layer */}
+              <div style={styles.cardBody}>
+                <span style={styles.sectionTitle}>Група поканени:</span>
                 
-                <div className="space-y-2.5">
+                <div>
                   {submission.guests?.map((guest, idx) => (
-                    <div 
-                      key={guest._id?.$oid || idx} 
-                      className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 shadow-2xs"
-                    >
-                      <div className="flex flex-col">
-                        <span className="font-bold text-slate-800 text-sm">{guest.name}</span>
+                    <div key={guest._id?.$oid || idx} style={styles.guestRow}>
+                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span style={styles.guestName}>{guest.name}</span>
                         {guest.menu && (
-                          <span className="text-[11px] text-slate-500 mt-1 font-medium inline-flex items-center gap-1 bg-white border border-slate-200 px-2 py-0.5 rounded-md w-fit">
-                            🍴 Меню: <span className="font-bold text-indigo-600">{guest.menu}</span>
-                          </span>
+                          <div>
+                            <span style={styles.menuTag}>🍴 Меню: <strong>{guest.menu}</strong></span>
+                          </div>
                         )}
                       </div>
-                      
-                      <span className={`text-[11px] font-bold px-2.5 py-1 rounded border shadow-3xs ${
-                        guest.status === 'yes' 
-                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
-                          : 'bg-rose-50 text-rose-700 border-rose-200'
-                      }`}>
+                      <span style={styles.statusBadge(guest.status === 'yes')}>
                         {guest.status === 'yes' ? 'Идва' : 'Не'}
                       </span>
                     </div>
@@ -139,17 +265,14 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Card Footer - Only renders if a text message is explicitly provided */}
+              {/* Card Footer Notes Layer */}
               {submission.message && submission.message.trim() !== "" && (
-                <div className="p-3 bg-amber-50 border border-amber-200 m-4 mt-0 rounded-xl">
-                  <span className="text-[10px] font-extrabold text-amber-800 block mb-0.5">
-                    💬 Бележка:
-                  </span>
-                  <p className="text-xs text-amber-900 italic font-medium">
-                    "{submission.message}"
-                  </p>
+                <div style={styles.messageBox}>
+                  <span style={styles.messageLabel}>💬 Бележка:</span>
+                  <p style={styles.messageText}>"{submission.message}"</p>
                 </div>
               )}
+
             </div>
           );
         })}
